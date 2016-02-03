@@ -15,10 +15,10 @@
             _products = new List<Product>
                             {
                                 new Product { Id = 1, Name = "Bread", Category = "Food", Price = 22m },
-                                new Product { Id = 1, Name = "Milk", Category = "Food", Price = 47m },
-                                new Product { Id = 1, Name = "Car", Category = "Vehicle", Price = 100500m },
-                                new Product { Id = 1, Name = "Phone", Category = "Hardware", Price = 999.99m },
-                                new Product { Id = 1, Name = "Hat", Category = "Wear", Price = 250m }
+                                new Product { Id = 2, Name = "Milk", Category = "Food", Price = 47m },
+                                new Product { Id = 3, Name = "Car", Category = "Vehicle", Price = 100500m },
+                                new Product { Id = 4, Name = "Phone", Category = "Hardware", Price = 999.99m },
+                                new Product { Id = 5, Name = "Hat", Category = "Wear", Price = 250m }
                             };
 
             _maxId = 5;
