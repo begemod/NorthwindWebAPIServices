@@ -8,13 +8,7 @@ namespace NorthwindWebAPIServices
 
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
-        {
-            RegisterRoutes(config);
-            RegisterDependencyResolver(config);
-        }
-
-        private static void RegisterRoutes(HttpConfiguration config)
+        public static void RegisterRoutes(HttpConfiguration config)
         {
             // Web API configuration and services
 
@@ -27,7 +21,7 @@ namespace NorthwindWebAPIServices
                 defaults: new { id = RouteParameter.Optional });
         }
 
-        private static void RegisterDependencyResolver(HttpConfiguration config)
+        public static void RegisterDependencyResolver(HttpConfiguration config)
         {
             var unityContainer = new UnityContainer();
 
