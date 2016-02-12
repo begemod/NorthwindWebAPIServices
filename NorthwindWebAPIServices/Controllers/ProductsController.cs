@@ -6,19 +6,25 @@
     using System.Net.Http;
     using System.Web.Http;
     using NorthwindWebAPIServices.Models;
+    using NorthwindWebAPIServices.Models.Entities;
 
     public class ProductsController : ApiController
     {
-        private static readonly ProductsRepository Products = new ProductsRepository();
+        private readonly IProductsRepository products;
+
+        public ProductsController(IProductsRepository products)
+        {
+            this.products = products;
+        }
 
         public IEnumerable<Product> Get()
         {
-            return Products.GetAll();
+            return products.GetAll();
         }
 
         public IHttpActionResult Get(int id)
         {
-            var product = Products.GetById(id);
+            var product = products.GetById(id);
 
             if (product == null)
             {
@@ -31,12 +37,12 @@
         // api/products?category=Foods
         public IEnumerable<Product> GetByCategory(string category)
         {
-            return Products.GetByCategory(category);
+            return products.GetByCategory(category);
         }
 
         public HttpResponseMessage Post(Product product)
         {
-            var addedProduct = Products.Add(product);
+            var addedProduct = products.Add(product);
 
             var response = Request.CreateResponse<Product>(HttpStatusCode.Created, product);
 
@@ -49,7 +55,7 @@
         public IHttpActionResult Put(int id, Product product)
         {
             product.Id = id;
-            if (!Products.Update(product))
+            if (!products.Update(product))
             {
                 return NotFound();
             }
@@ -59,7 +65,7 @@
 
         public void Delete(int id)
         {
-            if (!Products.Delete(id))
+            if (!products.Delete(id))
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
