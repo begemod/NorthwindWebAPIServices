@@ -1,4 +1,4 @@
-﻿namespace NorthwindWebAPIServices.Models
+﻿namespace NorthwindWebAPIServices.Models.Entities
 {
     public class Product
     {
