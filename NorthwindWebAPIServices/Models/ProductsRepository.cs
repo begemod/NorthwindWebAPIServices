@@ -4,15 +4,17 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ProductsRepository
-    {
-        private IList<Product> _products;
+    using NorthwindWebAPIServices.Models.Entities;
 
-        private int _maxId;
+    public class ProductsRepository : IProductsRepository
+    {
+        private readonly IList<Product> products;
+
+        private int maxId;
 
         public ProductsRepository()
         {
-            _products = new List<Product>
+            this.products = new List<Product>
                             {
                                 new Product { Id = 1, Name = "Bread", Category = "Food", Price = 22m },
                                 new Product { Id = 2, Name = "Milk", Category = "Food", Price = 47m },
@@ -21,22 +23,22 @@
                                 new Product { Id = 5, Name = "Hat", Category = "Wear", Price = 250m }
                             };
 
-            _maxId = 5;
+            this.maxId = 5;
         }
 
         public IEnumerable<Product> GetAll()
         {
-            return _products;
+            return this.products;
         }
 
         public Product GetById(int id)
         {
-            return _products.FirstOrDefault(P => P.Id == id);
+            return this.products.FirstOrDefault(P => P.Id == id);
         }
 
         public IEnumerable<Product> GetByCategory(string category)
         {
-            return _products.Where(P => string.Equals(category, P.Category, StringComparison.CurrentCultureIgnoreCase));
+            return this.products.Where(P => string.Equals(category, P.Category, StringComparison.CurrentCultureIgnoreCase));
         }
 
         public Product Add(Product product)
@@ -46,10 +48,10 @@
                 throw new ArgumentNullException("product");
             }
 
-            _maxId++;
-            product.Id = _maxId;
+            this.maxId++;
+            product.Id = maxId;
 
-            _products.Add(product);
+            this.products.Add(product);
 
             return product;
         }
@@ -61,7 +63,7 @@
                 throw new ArgumentNullException("product");
             }
             
-            var storedProduct = _products.FirstOrDefault(P => P.Id == product.Id);
+            var storedProduct = this.products.FirstOrDefault(P => P.Id == product.Id);
 
             if (storedProduct == null)
             {
@@ -77,18 +79,16 @@
 
         public bool Delete(int id)
         {
-            var storedProduct = _products.FirstOrDefault(P => P.Id == id);
+            var storedProduct = this.products.FirstOrDefault(P => P.Id == id);
 
             if (storedProduct == null)
             {
                 return false;
             }
 
-            _products.Remove(storedProduct);
+            this.products.Remove(storedProduct);
 
             return true;
-
-
         }
     }
 }
